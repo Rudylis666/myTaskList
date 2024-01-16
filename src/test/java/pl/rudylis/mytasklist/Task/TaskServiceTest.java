@@ -121,5 +121,34 @@ public class TaskServiceTest {
         assertThat(result).isEqualTo(lista);
     }
 
+    @Test
+    void deleteTask(){
+        //given
+        Task task = prepareTask();
+        //when
+        when(taskRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(task));
+        underTest.deleteTask(task.getTaskId());
+        //then
+        verify(taskRepository,times(1)).deleteById(Math.toIntExact(task.getTaskId()));
+    }
+    @Test
+    void deleteTaskWhenIdIsNull(){
+        //given
+        Task task = prepareTask();
+        Long id = null;
+        task.setTaskId(null);
+        assertThatThrownBy(()-> underTest.deleteTask(id))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Nie ma takiego tasku!");
+    }
+    @Test
+    void deleteTaskWithNoExistingId(){
+        //given
+        Task task = prepareTask();
+        assertThatThrownBy(()-> underTest.deleteTask(task.getTaskId()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Nie ma tasku o takim id");
+    }
+
 
 }

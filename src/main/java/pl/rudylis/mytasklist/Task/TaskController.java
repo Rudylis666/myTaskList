@@ -40,4 +40,9 @@ public class TaskController {
                 HttpStatus.OK
         );
     }
-}
+    @DeleteMapping(path = "/delete/{id_task}")
+    public void deleteTask(@PathVariable Long id_task) {
+        taskService.deleteTask(id_task);
+    }
+
+    }

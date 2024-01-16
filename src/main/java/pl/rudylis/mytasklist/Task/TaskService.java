@@ -44,6 +44,14 @@ public class TaskService {
     public List<Task> getAllTasks(){
         return taskRepository.findAll();
     }
+    public void deleteTask(Long id){
+        if(!isIdPresent(id)){
+            throw new IllegalArgumentException("Nie ma takiego tasku!");
+        }
+        taskRepository.findById(Math.toIntExact(id)).orElseThrow(()-> new IllegalArgumentException("Nie ma tasku o takim id"));
+        taskRepository.deleteById(Math.toIntExact(id));
+
+    }
 
     private boolean isIdPresent(Long id) {
         return id != null;
