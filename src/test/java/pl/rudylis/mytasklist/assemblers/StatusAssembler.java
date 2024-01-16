@@ -5,7 +5,7 @@ import pl.rudylis.mytasklist.Status.Status;
 public class StatusAssembler {
     public static Status prepareStatusUndone(){
         return Status.builder()
-                .idStatus(1L)
+                .idStatus(2L)
                 .description("undone")
                 .build();
     }
