@@ -1,10 +1,7 @@
 package pl.rudylis.mytasklist.Task;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.rudylis.mytasklist.Status.Status;
 import pl.rudylis.mytasklist.Steps.Steps;
 
@@ -13,6 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

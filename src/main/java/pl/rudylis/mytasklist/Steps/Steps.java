@@ -1,10 +1,7 @@
 package pl.rudylis.mytasklist.Steps;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.rudylis.mytasklist.Status.Status;
 import pl.rudylis.mytasklist.Task.Task;
 
@@ -14,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "steps")
 public class Steps {

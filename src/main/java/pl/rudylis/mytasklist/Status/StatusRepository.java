@@ -1,4 +1,6 @@
 package pl.rudylis.mytasklist.Status;
 
-public interface StatusRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StatusRepository extends JpaRepository<Status,Integer> {
 }
