@@ -36,11 +36,23 @@ public class TaskServiceTest {
         //when
         when(taskRepository.save(any(Task.class))).thenReturn(task);
         when(statusRepository.getReferenceById(any())).thenReturn(status);
-        Task result = underTest.saveTask(task);
+        Task result = underTest.saveTask(task,status.getIdStatus());
         //then
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(task);
 
     }
+    @Test
+    void saveTaskWhenIdExists(){
+        //given
+        Task task = prepareTask();
+        Status status = prepareStatusUndone();
+        //then
+        assertThatThrownBy(()-> underTest.saveTask(task,status.getIdStatus()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Jest już takie id tasku");
+
+    }
+
 
 }

@@ -14,13 +14,13 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final StatusRepository statusRepository;
 
-    public Task saveTask(Task task){
+    public Task saveTask(Task task, Long idStatus){
         if(isIdPresent(task.getTaskId())){
-            throw new IllegalArgumentException("Jest już takie id wydarzenia");
+            throw new IllegalArgumentException("Jest już takie id tasku");
         }
         LocalDate dzis = LocalDate.now();
         task.setSetDate(dzis);
-        Status status = statusRepository.getReferenceById(2);
+        Status status = statusRepository.getReferenceById(Math.toIntExact(idStatus));
         task.setStatus(status);
         return taskRepository.save(task);
     }
