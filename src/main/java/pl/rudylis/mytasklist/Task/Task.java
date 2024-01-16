@@ -28,6 +28,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "taskStatus")
     private Status status;
-    @OneToMany(mappedBy = "idTask")
+    @OneToMany(mappedBy = "task")
     private Set<Steps> stepsSet;
 }
