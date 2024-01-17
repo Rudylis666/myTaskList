@@ -24,5 +24,12 @@ public class StepsController {
                 HttpStatus.OK
         );
     }
+    @GetMapping(path = "get/{idStep}")
+    public ResponseEntity<Steps> getStep(@PathVariable Long idStep){
+        return new ResponseEntity<>(
+                stepsService.getStep(idStep),
+                HttpStatus.OK
+        );
+    }
 
 }

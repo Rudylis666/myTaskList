@@ -43,6 +43,12 @@ public class StepsService {
         step.setStatus(status);
         return stepsRepository.save(step);
     }
+    public Steps getStep(Long idStep){
+        if(!isIdPresent(idStep)){
+            throw new IllegalArgumentException("Id == null");
+        }
+        return stepsRepository.getReferenceById(Math.toIntExact(idStep));
+    }
     private boolean isIdPresent(Long id) {
         return id != null;
     }
