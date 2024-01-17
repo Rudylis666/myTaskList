@@ -1,4 +1,6 @@
 package pl.rudylis.mytasklist.Steps;
 
-public interface StepsRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StepsRepository extends JpaRepository<Steps,Integer> {
 }
