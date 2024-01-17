@@ -7,11 +7,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pl.rudylis.mytasklist.Task.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static pl.rudylis.mytasklist.assemblers.StepsAssembler.prepareStep;
+import static pl.rudylis.mytasklist.assemblers.TaskAssembler.prepareTask;
 
 @ExtendWith(MockitoExtension.class)
 class StepsControllerTest {
@@ -57,6 +62,24 @@ class StepsControllerTest {
         //when
         when(stepsService.getStep(any())).thenReturn(steps);
         ResponseEntity<Steps> result = underTest.getStep(stepId);
+        //then
+        assertThat(result.getBody()).isEqualTo(steps);
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+    @Test
+    void getAllTaskSteps(){
+        //given
+        Steps step1 = prepareStep();
+        Steps step2 = prepareStep();
+        step2.setIdStep(2L);
+        List<Steps> steps = new ArrayList<>();
+        steps.add(step1);
+        steps.add(step2);
+        Task task = prepareTask();
+        Long taskId=task.getTaskId();
+        //when
+        when(stepsService.getAllTaskSteps(taskId)).thenReturn(steps);
+        ResponseEntity<List<Steps>> result = underTest.getAllTaskSteps(taskId);
         //then
         assertThat(result.getBody()).isEqualTo(steps);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);

@@ -10,6 +10,9 @@ import pl.rudylis.mytasklist.Status.StatusRepository;
 import pl.rudylis.mytasklist.Task.Task;
 import pl.rudylis.mytasklist.Task.TaskRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -133,5 +136,34 @@ class StepsServiceTest {
         assertThatThrownBy(()-> underTest.getStep(stepId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Id == null");
+    }
+    @Test
+    void getAllTaskSteps(){
+        //given
+        Steps step1 = prepareStep();
+        Steps step2 = prepareStep();
+        step2.setIdStep(2L);
+        List<Steps> steps = new ArrayList<>();
+        steps.add(step1);
+        steps.add(step2);
+        Task task = prepareTask();
+        Long taskId=task.getTaskId();
+        //when
+        when(taskRepository.getReferenceById(any())).thenReturn(task);
+        when(stepsRepository.findByTaskTaskId(any())).thenReturn(steps);
+        List<Steps> result = underTest.getAllTaskSteps(taskId);
+        //then
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(steps);
+    }
+    @Test
+    void getAllTaskStepsWhenIdIsNull(){
+        //given
+        Long taskId=null;
+        //then
+        assertThatThrownBy(()-> underTest.getAllTaskSteps(taskId))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Id == null");
+
     }
 }
