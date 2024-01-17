@@ -39,4 +39,17 @@ class StepsControllerTest {
         assertThat(result.getBody()).isEqualTo(step);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
+    @Test
+    void updateStep(){
+        //given
+        Steps step = prepareStep();
+        Long idTask=1L;
+        Long idStatus=1L;
+        //when
+        when(stepsService.updateStep(any(Steps.class),any(Long.class),any(Long.class))).thenReturn(step);
+        ResponseEntity<Steps> result = underTest.updateStep(step, idTask,idStatus);
+        //then
+        assertThat(result.getBody()).isEqualTo(step);
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }

@@ -34,6 +34,15 @@ public class StepsService {
         step.setStatus(status);
         return stepsRepository.save(step);
     }
+    public Steps updateStep(Steps step, Long idTask, Long idStatus){
+        if(!isIdPresent(idTask)||!isIdPresent(step.getIdStep())||!isIdPresent(idStatus)){
+            throw new IllegalArgumentException("Id == null");
+        }
+        Task task = taskRepository.getReferenceById(Math.toIntExact(idTask));
+        Status status = statusRepository.getReferenceById(Math.toIntExact(idStatus));
+        step.setStatus(status);
+        return stepsRepository.save(step);
+    }
     private boolean isIdPresent(Long id) {
         return id != null;
     }

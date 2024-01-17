@@ -84,4 +84,35 @@ class StepsServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Nie ma takiego tasku");
     }
+
+    @Test
+    void updateStatus(){
+        //given
+        Steps steps = prepareStep();
+        steps.setDescription("Nowy opis");
+        Status status = prepareStatusUndone();
+        Task task = prepareTask();
+        //when
+        when(taskRepository.getReferenceById(any())).thenReturn(task);
+        when(statusRepository.getReferenceById(any())).thenReturn(status);
+        when(stepsRepository.save(any(Steps.class))).thenReturn(steps);
+        //then
+        Steps result = underTest.updateStep(steps,task.getTaskId(),status.getIdStatus());
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(steps);
+        assertThat(result.getDescription()).isEqualTo("Nowy opis");
+    }
+    @Test
+    void updateStepWhenTaskIdIsNull(){
+        //given
+        Steps steps = prepareStep();
+        steps.setDescription("Nowy opis");
+        Status status = prepareStatusUndone();
+        Task task = prepareTask();
+        task.setTaskId(null);
+        //then
+        assertThatThrownBy(()-> underTest.updateStep(steps,task.getTaskId(),status.getIdStatus()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Id == null");
+    }
 }

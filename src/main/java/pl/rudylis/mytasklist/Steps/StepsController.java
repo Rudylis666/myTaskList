@@ -17,5 +17,12 @@ public class StepsController {
                 HttpStatus.CREATED
         );
     }
+    @PutMapping(path="{id_task}/{id_status}")
+    public ResponseEntity<Steps> updateStep(@RequestBody Steps step,@PathVariable Long id_task, @PathVariable Long id_status){
+        return new ResponseEntity<>(
+                stepsService.updateStep(step,id_task,id_status),
+                HttpStatus.OK
+        );
+    }
 
 }
