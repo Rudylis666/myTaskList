@@ -113,4 +113,25 @@ class StepsServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Id == null");
     }
+    @Test
+    void getStep(){
+        //given
+        Steps step = prepareStep();
+        Long stepId= step.getIdStep();
+        //when
+        when(stepsRepository.getReferenceById(any())).thenReturn(step);
+        Steps result = underTest.getStep(stepId);
+        //then
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(step);
+    }
+    @Test
+    void getStepWhenIdIsNull(){
+        //given
+        Long stepId= null;
+        //then
+        assertThatThrownBy(()-> underTest.getStep(stepId))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Id == null");
+    }
 }
