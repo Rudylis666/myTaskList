@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/step/")
 @RequiredArgsConstructor
@@ -28,6 +30,13 @@ public class StepsController {
     public ResponseEntity<Steps> getStep(@PathVariable Long idStep){
         return new ResponseEntity<>(
                 stepsService.getStep(idStep),
+                HttpStatus.OK
+        );
+    }
+    @GetMapping(path="getAll/{taskId}")
+    public ResponseEntity<List<Steps>> getAllTaskSteps(@PathVariable Long taskId){
+        return new ResponseEntity<>(
+                stepsService.getAllTaskSteps(taskId),
                 HttpStatus.OK
         );
     }

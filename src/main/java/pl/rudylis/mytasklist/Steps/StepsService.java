@@ -8,6 +8,7 @@ import pl.rudylis.mytasklist.Task.Task;
 import pl.rudylis.mytasklist.Task.TaskRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,14 @@ public class StepsService {
             throw new IllegalArgumentException("Id == null");
         }
         return stepsRepository.getReferenceById(Math.toIntExact(idStep));
+    }
+    public List<Steps> getAllTaskSteps(Long idTask){
+        if(!isIdPresent(idTask)){
+            throw new IllegalArgumentException("Id == null");
+        }
+        Task task = taskRepository.getReferenceById(Math.toIntExact(idTask));
+        return stepsRepository.findByTaskTaskId(idTask);
+
     }
     private boolean isIdPresent(Long id) {
         return id != null;
