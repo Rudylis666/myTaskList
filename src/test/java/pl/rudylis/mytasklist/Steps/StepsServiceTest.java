@@ -9,11 +9,9 @@ import pl.rudylis.mytasklist.Status.Status;
 import pl.rudylis.mytasklist.Status.StatusRepository;
 import pl.rudylis.mytasklist.Task.Task;
 import pl.rudylis.mytasklist.Task.TaskRepository;
-import pl.rudylis.mytasklist.Task.TaskService;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static pl.rudylis.mytasklist.assemblers.StatusAssembler.prepareStatusUndone;

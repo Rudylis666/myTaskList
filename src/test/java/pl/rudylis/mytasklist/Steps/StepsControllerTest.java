@@ -7,13 +7,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import pl.rudylis.mytasklist.Status.Status;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static pl.rudylis.mytasklist.assemblers.StatusAssembler.prepareStatusUndone;
 import static pl.rudylis.mytasklist.assemblers.StepsAssembler.prepareStep;
 
 @ExtendWith(MockitoExtension.class)
