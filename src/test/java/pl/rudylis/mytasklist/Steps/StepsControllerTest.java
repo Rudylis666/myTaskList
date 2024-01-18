@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static pl.rudylis.mytasklist.assemblers.StepsAssembler.prepareStep;
 import static pl.rudylis.mytasklist.assemblers.TaskAssembler.prepareTask;
@@ -83,6 +84,15 @@ class StepsControllerTest {
         //then
         assertThat(result.getBody()).isEqualTo(steps);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+    }
+    @Test
+    void deleteStep(){
+        //given
+        Long id=1L;
+        //then
+        underTest.deleteStep(id);
+        verify(stepsService).deleteStep(id);
 
     }
 }
