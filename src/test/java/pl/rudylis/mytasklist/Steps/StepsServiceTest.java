@@ -16,7 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static pl.rudylis.mytasklist.assemblers.StatusAssembler.prepareStatusUndone;
 import static pl.rudylis.mytasklist.assemblers.StepsAssembler.prepareStep;
 import static pl.rudylis.mytasklist.assemblers.TaskAssembler.prepareTask;
@@ -165,5 +165,33 @@ class StepsServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Id == null");
 
+    }
+    @Test
+    void deleteStep(){
+        //given
+        Steps step = prepareStep();
+        //when
+        when(stepsRepository.findById(any())).thenReturn(java.util.Optional.ofNullable(step));
+        underTest.deleteStep(step.getIdStep());
+        //then
+        verify(stepsRepository,times(1)).deleteById(Math.toIntExact(step.getIdStep()));
+    }
+    @Test
+    void deleteStepWhenIdIsNull(){
+        //given
+        Long id= null;
+        //then
+        assertThatThrownBy(()-> underTest.deleteStep(id))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Id == null");
+    }
+    @Test
+    void deleteStepWhenIdIsNotPresent(){
+        //given
+        Steps step = prepareStep();
+        //then
+        assertThatThrownBy(()-> underTest.deleteStep(step.getIdStep()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Nie ma kroku o takim id");
     }
 }
