@@ -58,6 +58,13 @@ public class StepsService {
         return stepsRepository.findByTaskTaskId(idTask);
 
     }
+    public void deleteStep(Long idStep){
+        if(!isIdPresent(idStep)){
+            throw new IllegalArgumentException("Id == null");
+        }
+        stepsRepository.findById(Math.toIntExact(idStep)).orElseThrow(()-> new IllegalArgumentException("Nie ma kroku o takim id"));
+        stepsRepository.deleteById(Math.toIntExact(idStep));
+    }
     private boolean isIdPresent(Long id) {
         return id != null;
     }

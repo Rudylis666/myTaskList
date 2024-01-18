@@ -40,5 +40,9 @@ public class StepsController {
                 HttpStatus.OK
         );
     }
+    @DeleteMapping(path="delete/{id_step}")
+    public void deleteStep(@PathVariable Long id_step){
+        stepsService.deleteStep(id_step);
+    }
 
 }
