@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/")
+@RequestMapping(path = "/task")
 @RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;
