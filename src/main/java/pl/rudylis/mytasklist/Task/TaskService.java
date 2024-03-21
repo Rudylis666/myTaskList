@@ -22,7 +22,7 @@ public class TaskService {
         }
         LocalDate dzis = LocalDate.now();
         task.setSetDate(dzis);
-        Status status = statusRepository.getReferenceById(Math.toIntExact(idStatus));
+        Status status = statusRepository.findById(Math.toIntExact(idStatus)).orElseThrow(() -> new IllegalArgumentException("Nie ma takiego Status ID!"));
         task.setStatus(status);
         return taskRepository.save(task);
     }
