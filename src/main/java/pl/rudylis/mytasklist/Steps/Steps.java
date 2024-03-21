@@ -1,5 +1,6 @@
 package pl.rudylis.mytasklist.Steps;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.rudylis.mytasklist.Status.Status;
@@ -18,6 +19,7 @@ public class Steps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStep;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idTask")
     private Task task;

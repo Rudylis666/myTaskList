@@ -1,5 +1,6 @@
 package pl.rudylis.mytasklist.Task;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.rudylis.mytasklist.Status.Status;
@@ -26,6 +27,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "taskStatus")
     private Status status;
+    @JsonIgnore
     @OneToMany(mappedBy = "task")
     private Set<Steps> stepsSet;
 }

@@ -2,6 +2,7 @@ package pl.rudylis.mytasklist.Task;
 
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import pl.rudylis.mytasklist.Status.Status;
 import pl.rudylis.mytasklist.Status.StatusRepository;
@@ -29,16 +30,19 @@ public class TaskService {
         if(!isIdPresent(task.getTaskId())){
             throw new IllegalArgumentException("Nie ma takiego tasku!");
         }
-        Status status = statusRepository.getReferenceById(Math.toIntExact(idStatus));
-        task.setStatus(status);
-        return taskRepository.save(task);
+        Task existingTask = taskRepository.findById(Math.toIntExact(task.getTaskId()))
+                .orElseThrow(() -> new IllegalArgumentException("Nie ma takiego tasku!"));
+        Status status = statusRepository.findById(Math.toIntExact(idStatus)).orElseThrow(() -> new IllegalArgumentException("Nie ma takiego Status ID!"));
+        existingTask.setStatus(status);
+        return taskRepository.save(existingTask);
     }
 
     public Task getTask(Long id){
         if(!isIdPresent(id)){
             throw new IllegalArgumentException("Nie ma takiego tasku!");
         }
-        return taskRepository.getReferenceById(Math.toIntExact(id));
+        return taskRepository.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new IllegalArgumentException("Nie ma takiego tasku!"));
     }
 
     public List<Task> getAllTasks(){
