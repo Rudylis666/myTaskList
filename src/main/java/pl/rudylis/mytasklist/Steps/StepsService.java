@@ -25,10 +25,8 @@ public class StepsService {
         if(isIdPresent(step.getIdStep())){
             throw new IllegalArgumentException("Już jest krok o takim id");
         }
-        Optional<Task> task = taskRepository.findById(Math.toIntExact(idTask));
-        if(task.isEmpty()){
-            throw new IllegalArgumentException("Nie ma takiego tasku");
-        }
+        Task task = taskRepository.findById(Math.toIntExact(idTask)).orElseThrow(()-> new IllegalArgumentException("Nie ma takiego zadania!"));
+        step.setTask(task);
         LocalDate dzis = LocalDate.now();
         step.setSetDate(dzis);
         Status status = statusRepository.getReferenceById(2);
