@@ -19,7 +19,6 @@ public class Steps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStep;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idTask")
     private Task task;

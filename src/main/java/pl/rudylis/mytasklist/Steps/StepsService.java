@@ -39,8 +39,8 @@ public class StepsService {
         if(!isIdPresent(idTask)||!isIdPresent(step.getIdStep())||!isIdPresent(idStatus)){
             throw new IllegalArgumentException("Id == null");
         }
-        Task task = taskRepository.getReferenceById(Math.toIntExact(idTask));
-        Status status = statusRepository.getReferenceById(Math.toIntExact(idStatus));
+        Task task = taskRepository.findById(Math.toIntExact(idTask)).orElseThrow(() -> new IllegalArgumentException("Nie ma takiego taskId!"));;
+        Status status = statusRepository.findById(Math.toIntExact(idStatus)).orElseThrow(() -> new IllegalArgumentException("Nie ma takiego statusu!"));;
         step.setStatus(status);
         return stepsRepository.save(step);
     }
@@ -48,13 +48,14 @@ public class StepsService {
         if(!isIdPresent(idStep)){
             throw new IllegalArgumentException("Id == null");
         }
-        return stepsRepository.getReferenceById(Math.toIntExact(idStep));
+        Steps step = stepsRepository.findById(Math.toIntExact(idStep)).orElseThrow(() -> new IllegalArgumentException("Nie ma takiego stepId!"));
+        return step;
     }
     public List<Steps> getAllTaskSteps(Long idTask){
         if(!isIdPresent(idTask)){
             throw new IllegalArgumentException("Id == null");
         }
-        Task task = taskRepository.getReferenceById(Math.toIntExact(idTask));
+        Task task = taskRepository.findById(Math.toIntExact(idTask)).orElseThrow(()->new IllegalArgumentException("Nie ma takiego stepId!"));
         return stepsRepository.findByTaskTaskId(idTask);
 
     }
